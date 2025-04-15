@@ -1,0 +1,21 @@
+# medical_diagnosis_langchain.py
+
+from langchain.llms import OpenAI
+from langchain.chains import LLMChain
+from langchain.prompts import PromptTemplate
+
+llm = OpenAI()
+
+prompt = PromptTemplate(
+    input_variables=["symptoms"],
+    template="""
+You are a medical assistant. Based on the following symptoms, provide a possible diagnosis and suggest next steps:\n\nSymptoms: {symptoms}
+"""
+)
+
+diagnosis_chain = LLMChain(llm=llm, prompt=prompt)
+
+symptoms = "Persistent cough, fatigue, mild fever, shortness of breath"
+diagnosis = diagnosis_chain.run(symptoms=symptoms)
+
+print("Diagnosis Suggestion:\n", diagnosis)
