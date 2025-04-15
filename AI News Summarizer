@@ -1,0 +1,21 @@
+# news_summarizer_langchain.py
+
+from langchain.llms import OpenAI
+from langchain.prompts import PromptTemplate
+from langchain.chains import LLMChain
+
+llm = OpenAI()
+
+prompt = PromptTemplate(
+    input_variables=["article"],
+    template="Summarize this news article:\n\n{article}\n\nSummary:"
+)
+
+summarizer_chain = LLMChain(llm=llm, prompt=prompt)
+
+article = """
+India's space agency ISRO launched a new weather satellite that is expected to improve forecasting. The launch was successful and marks another milestone...
+"""
+
+summary = summarizer_chain.run(article)
+print("Summary:", summary)
