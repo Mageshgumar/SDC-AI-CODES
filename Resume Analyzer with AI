@@ -1,0 +1,24 @@
+# resume_analyzer_langchain.py
+
+from langchain.llms import OpenAI
+from langchain.chains import LLMChain
+from langchain.prompts import PromptTemplate
+
+llm = OpenAI()
+
+prompt = PromptTemplate(
+    input_variables=["resume"],
+    template="""
+Evaluate the following resume and provide suggestions to improve it. Also mention potential job roles for this candidate:\n\n{resume}
+"""
+)
+
+analyzer_chain = LLMChain(llm=llm, prompt=prompt)
+
+resume_text = """
+John Doe, Python Developer with 2 years experience in web development.
+Skilled in Django, Flask, and REST APIs. Seeking backend roles in tech.
+"""
+
+result = analyzer_chain.run(resume=resume_text)
+print(result)
