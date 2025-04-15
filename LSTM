@@ -1,0 +1,14 @@
+from keras.models import Sequential
+from keras.layers import LSTM, Dense
+import numpy as np
+
+X = np.random.random((100, 10, 1))
+y = np.random.randint(2, size=(100, 1))
+
+model = Sequential([
+    LSTM(50, input_shape=(10, 1)),
+    Dense(1, activation='sigmoid')
+])
+
+model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+model.fit(X, y, epochs=5)
